@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+    - stable
+branches:
+    only:
+    - develop
+script:
+    - npm test
+    - npm run build
+env:
+    global:
+    - GH_REPO: github.com/${TRAVIS_REPO_SLUG}
+    - secure: mWj71cFEtVMzrdV/hC9GRQDCNOJmjDBBtG+9qtHEdvpF08knLjuLPnQqW+bdQk6XCsgPwdC7iW+BHxS9vfdgAPb2JPoWRFTURXlCMWuSu8fvwj9AT5mqxmB9+IauLKhng7lZTnQvUiKEX25Nt9ujrHT2skZs9oVC3guyrBNOmfQ7a49hR6kPuzRirWMudSExZFdA6D3xurP43orXcZlOJjyI2XkjCiwxMVWzx51MT8RgwTNK6o6sOwg7jQ3xWP72xa9yvt//HNJ1cSB/QftiKfphXRPIxcA3/+wGjnEaxVWdSxGW+M5aYUUkuShK+yuH0nCfJVLyZOjKmMNKuvDtaPZxtAV9BljEDvyJFa5/j4tWHD3RxVUDJHzr7p54qg8QWwEn65fRd47jbux4JZN1pd4Uk+mQNwmkD1qIinmDacXxumaD3qmohFTgXxhGzFSRpQ5aF2WvV2UIDxc2u/xWDnGml7iqhQAJmdE0iZYujNDeC9gRAit30Du/c54F04duvvEooV3gO3+30xtOMas/4RdbDc+WVk3SKx7wWZY5oax+J2CVl41FZZZv125WguUjTlfpMaM/zajDPALaCEG777ewrN4+aqxSjkga4Xc+KgmozXja7ln3GNmW1LIgAeHDSKvQBGkPaP7IgRBRSzkhz8Ffzzv2vNVZ36E7v4unZbI=
+after_success:
+    - npm run deploy
+
