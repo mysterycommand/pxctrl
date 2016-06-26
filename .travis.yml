@@ -3,7 +3,7 @@ node_js:
     - stable
 branches:
     only:
-    - develop
+    - master
 script:
     - npm test
     - npm run build
