@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///webpack:///source/source/main.scss"],"names":[],"mappings":"AAAA,iBAGI,YACA,UAAY,CAGhB,KACI,QAAU","file":"main.css","sourcesContent":["html,\nbody,\ncanvas {\n    height: 100%;\n    width: 100%;\n}\n\nbody {\n    margin: 0;\n}\n\n\n\n/** WEBPACK FOOTER **\n ** webpack:///source/source/main.scss\n **/"],"sourceRoot":""}
