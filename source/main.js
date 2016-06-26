@@ -31,4 +31,3 @@ function onResize(/*event*/) {
 
 window.addEventListener('resize', onResize);
 onResize();
-
