@@ -1,5 +1,3 @@
-import './main.scss';
-
 if (process.env.NODE_ENV !== 'production') {
     const cb = window.webpackHotUpdate;
 
@@ -15,3 +13,21 @@ if (process.env.NODE_ENV !== 'production') {
         return cb(...args);
     }
 }
+
+import './main.scss';
+
+const canvas = document.getElementById('js-canvas');
+const ctx = canvas.getContext('2d');
+
+function onResize(/*event*/) {
+    const {
+        innerHeight: height,
+        innerWidth: width,
+    } = window;
+
+    canvas.height = height;
+    canvas.width = width;
+}
+
+window.addEventListener('resize', onResize);
+onResize();
