@@ -4,29 +4,68 @@ import './main.scss';
 const canvas = document.getElementById('js-canvas');
 const ctx = canvas.getContext('2d');
 
+const π = Math.PI;
+const ππ = 2 * Math.PI;
+
+let upDown, leftRight, around;
+let w, h, hw, hh;
+let p = 3000;
+
 function onResize(/*event*/) {
     const {
         innerHeight: height,
         innerWidth: width,
     } = window;
 
-    canvas.height = height;
-    canvas.width = width;
+    canvas.height = h = height;
+    canvas.width = w = width;
+    hh = h / 2;
+    hw = w / 2;
+
+    upDown = sinusoid(0 + hh / 2, h - hh / 2, p);
+    leftRight = cosinusoid(0 + hw / 2, w - hw / 2, p);
+    around = sinusoid(π / 4, π - π / 4, p / 4);
 }
 
 window.addEventListener('resize', onResize);
 onResize();
 
+function sinusoid(min, max, period, offset = 0) {
+    return function(ts) {
+        return ((max - min) / 2) * (1 + Math.sin((ts + offset) * (ππ / period))) + min;
+    }
+}
+
+function cosinusoid(min, max, period, offset = 0) {
+    return function(ts) {
+        return ((max - min) / 2) * (1 + Math.cos((ts + offset) * (ππ / period))) + min;
+    }
+}
+
+function draw(ctx, ts) {
+    ctx.save();
+
+    ctx.lineWidth = 3;
+    ctx.fillStyle = 'rgba(255,255,0,0.65)';
+    ctx.strokeStyle = 'rgba(255,0,255,0.85)';
+
+    ctx.translate(leftRight(ts), upDown(ts));
+    ctx.rotate(around(ts));
+    ctx.beginPath();
+    ctx.arc(0, 0, 20, π, 0);
+    ctx.arc(0, 60, 20, 0, π);
+    ctx.closePath();
+
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.restore();
+}
+
 (function tick(ts) {
     window.requestAnimationFrame(tick);
-
-    const {
-        height: h,
-        width: w,
-    } = canvas;
-
-    const hh = h / 2;
-    const hw = w / 2;
-
     ctx.clearRect(0, 0, w, h);
+    for (let i = 0, l = 100; i < l; ++ i) {
+        draw(ctx, ts + i * (p / l));
+    }
 })();
