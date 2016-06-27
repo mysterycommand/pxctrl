@@ -52,7 +52,7 @@ function draw(ctx, ts) {
     const y = ud(ts);
 
     ctx.translate(x, y);
-    ctx.rotate(Math.atan2(y - hh, x - hw) + π / 2);
+    ctx.rotate(Math.atan2(y - hh, x - hw) - π / 2);
     ctx.beginPath();
     ctx.arc(0, 0, 20, π, 0);
     ctx.arc(0, 60, 20, 0, π);
