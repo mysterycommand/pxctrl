@@ -1,3 +1,5 @@
+$hex-black: #000;
+
 html,
 body,
 canvas {
@@ -6,5 +8,6 @@ canvas {
 }
 
 body {
+    background: $hex-black;
     margin: 0;
 }
