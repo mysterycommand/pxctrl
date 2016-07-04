@@ -8,6 +8,7 @@ const π = Math.PI;
 const ππ = 2 * Math.PI;
 
 let ud, lr;
+let fts, pts, dts;
 let w, h, hw, hh;
 let p = 3000;
 
@@ -66,8 +67,17 @@ function draw(ctx, ts) {
 
 (function tick(ts = Date.now()) {
     window.requestAnimationFrame(tick);
+
+    fts || (fts = ts);
+    pts || (pts = fts);
+
+    ts -= fts;
+    dts = ts - pts;
+
     ctx.clearRect(0, 0, w, h);
-    for (let i = 0, l = 11; i < l; ++ i) {
+    for (let i = 0, l = 4; i < l; ++ i) {
         draw(ctx, ts + i * (p / l));
     }
+
+    pts = ts;
 })();
