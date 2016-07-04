@@ -75,7 +75,7 @@ function draw(ctx, ts) {
     dts = ts - pts;
 
     ctx.clearRect(0, 0, w, h);
-    for (let i = 0, l = 4; i < l; ++ i) {
+    for (let i = 0, l = 3; i < l; ++ i) {
         draw(ctx, ts + i * (p / l));
     }
 
