@@ -172,7 +172,7 @@ function draw(ctx, ts, part) {
 }
 
 (function tick(ts = Date.now()) {
-    // window.requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
 
     fts || (fts = ts);
     pts || (pts = fts);
