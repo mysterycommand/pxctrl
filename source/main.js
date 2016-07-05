@@ -10,6 +10,10 @@ const ctx = canvas.getContext('2d');
 let fts, pts, dts;
 let w, h, hw, hh;
 
+const p0 = 5000;
+const p1 = 8000;
+const p2 = 13000;
+
 const puppet = new Puppet({
     // _x: sine(hw - 20, hw + 20, 1000),
 
@@ -29,35 +33,35 @@ const puppet = new Puppet({
 });
 
 puppet.addChild(new Puppet({
-    _x: sine(110, -60, 3000),
-
-    _y(ts) { return this.parent.height - this.height / 2; },
-
-    _z: sine(2, 0, 3000, 3000 / 4),
-
-    _width(ts) {
-        return 50;
-    },
-
-    _height(ts) {
-        return 50;
-    },
+    _x: sine(110, -60, p1),
+    _y: sine(75, -25, p1),
+    _z: sine(2, 0, p1, p1 / 4),
+    _width: (ts) => 50,
+    _height: (ts) => 50,
 }));
 
 puppet.addChild(new Puppet({
-    _x: sine(-60, 110, 3000),
+    _x: sine(-60, 110, p1),
+    _y: sine(-25, 75, p1),
+    _z: sine(0, 2, p1, p1 / 4),
+    _width: (ts) => 50,
+    _height: (ts) => 50,
+}));
 
-    _y(ts) { return -this.height / 2; },
+puppet.addChild(new Puppet({
+    _x: cosine(150, -75, p2, p2 / 2),
+    _y: cosine(150, -75, p2),
+    _z: cosine(2, 0, p2, p2 / 4),
+    _width: (ts) => 25,
+    _height: (ts) => 25,
+}));
 
-    _z: sine(0, 2, 3000, 3000 / 4),
-
-    _width(ts) {
-        return 50;
-    },
-
-    _height(ts) {
-        return 50;
-    },
+puppet.addChild(new Puppet({
+    _x: cosine(-75, 150, p2, p2 / 2),
+    _y: cosine(-75, 150, p2),
+    _z: cosine(0, 2, p2, p2 / 4),
+    _width: (ts) => 25,
+    _height: (ts) => 25,
 }));
 
 function onResize(/*event*/) {
@@ -71,7 +75,7 @@ function onResize(/*event*/) {
     hh = h / 2;
     hw = w / 2;
 
-    puppet._x = sine(hw / 2, hw + hw / 2, 5000);
+    puppet._x = sine(hw / 2, hw + hw / 2, p0);
 }
 
 window.addEventListener('resize', onResize);
