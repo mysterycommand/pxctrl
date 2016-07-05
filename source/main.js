@@ -15,51 +15,47 @@ const p1 = 8000;
 const p2 = 13000;
 
 const puppet = new Puppet({
-    // _x: sine(hw - 20, hw + 20, 1000),
+    _x(ts) {
+        return hw - this.width / 2;
+    },
 
     _y(ts) {
         return hh - this.height / 2;
     },
 
-    _z(ts) { return 1; },
-
-    _width(ts) {
-        return 100;
-    },
-
-    _height(ts) {
-        return 100;
-    },
+    _z: (ts) => 2,
+    _width: (ts) => 80,
+    _height: (ts) => 200,
 });
 
 puppet.addChild(new Puppet({
-    _x: sine(110, -60, p1),
-    _y: sine(75, -25, p1),
-    _z: sine(2, 0, p1, p1 / 4),
+    _x: sine(90, -60, p1),
+    _y: sine(175, -25, p1),
+    _z: sine(3, 1, p1, p1 / 4),
     _width: (ts) => 50,
     _height: (ts) => 50,
 }));
 
 puppet.addChild(new Puppet({
-    _x: sine(-60, 110, p1),
-    _y: sine(-25, 75, p1),
-    _z: sine(0, 2, p1, p1 / 4),
+    _x: sine(-60, 90, p1),
+    _y: sine(-25, 175, p1),
+    _z: sine(1, 3, p1, p1 / 4),
     _width: (ts) => 50,
     _height: (ts) => 50,
 }));
 
 puppet.addChild(new Puppet({
-    _x: cosine(150, -75, p2, p2 / 2),
-    _y: cosine(150, -75, p2),
-    _z: cosine(2, 0, p2, p2 / 4),
+    _x: cosine(130, -75, p2, p2 / 2),
+    _y: cosine(250, -75, p2),
+    _z: cosine(4, 0, p2, p2 / 4),
     _width: (ts) => 25,
     _height: (ts) => 25,
 }));
 
 puppet.addChild(new Puppet({
-    _x: cosine(-75, 150, p2, p2 / 2),
-    _y: cosine(-75, 150, p2),
-    _z: cosine(0, 2, p2, p2 / 4),
+    _x: cosine(-75, 130, p2, p2 / 2),
+    _y: cosine(-75, 250, p2),
+    _z: cosine(0, 4, p2, p2 / 4),
     _width: (ts) => 25,
     _height: (ts) => 25,
 }));
