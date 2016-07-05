@@ -66,14 +66,14 @@ const part = new Part({
 
     children: [
         new Part({
-            x: sinWave(-20, 20, p, p / 2),
+            x: sinWave(-20, 20, p),
 
             y: function y(ts) {
                 return 70;
             },
 
             r: function r(ts) {
-                return Math.atan2(this.y(ts) - 60, this.x(ts)) - π / 2;
+                return Math.atan2(this.y(ts) - 40, this.x(ts)) - π / 2;
             },
 
             children: [
@@ -88,14 +88,14 @@ const part = new Part({
         }),
 
         new Part({
-            x: cosWave(-20, 20, p, 0),
+            x: cosWave(-20, 20, p),
 
             y: function y(ts) {
                 return 70;
             },
 
             r: function r(ts) {
-                return Math.atan2(this.y(ts) - 60, this.x(ts)) - π / 2;
+                return Math.atan2(this.y(ts) - 40, this.x(ts)) - π / 2;
             },
 
             children: [
@@ -110,10 +110,10 @@ const part = new Part({
         }),
 
         new Part({
-            x: sinWave(-20, 20, p, p / 2),
+            x: sinWave(-20, 20, p, -p / 4),
 
             r: function r(ts) {
-                return Math.atan2(this.y(ts) + 10, this.x(ts)) - π / 2;
+                return Math.atan2(this.y(ts) + 30, this.x(ts)) - π / 2;
             },
 
             children: [
@@ -128,10 +128,10 @@ const part = new Part({
         }),
 
         new Part({
-            x: cosWave(-20, 20, p, 0),
+            x: cosWave(-20, 20, p, 200),
 
             r: function r(ts) {
-                return Math.atan2(this.y(ts) + 10, this.x(ts)) - π / 2;
+                return Math.atan2(this.y(ts) + 30, this.x(ts)) - π / 2;
             },
 
             children: [
@@ -172,7 +172,7 @@ function draw(ctx, ts, part) {
 }
 
 (function tick(ts = Date.now()) {
-    window.requestAnimationFrame(tick);
+    // window.requestAnimationFrame(tick);
 
     fts || (fts = ts);
     pts || (pts = fts);
