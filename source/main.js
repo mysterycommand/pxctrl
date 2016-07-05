@@ -45,7 +45,7 @@ puppet.addChild(new Puppet({
 puppet.addChild(new Puppet({
     _x(ts) { return -10; },
 
-    _y(ts) { return this.parent.height - 10; },
+    _y(ts) { return -10; },
 
     _z(ts) { return 2; },
 
@@ -69,7 +69,7 @@ function onResize(/*event*/) {
     hh = h / 2;
     hw = w / 2;
 
-    puppet._x = sine(hw - 20, hw + 20, 1000);
+    puppet._x = sine(hw / 2, hw + hw / 2, 5000);
 }
 
 window.addEventListener('resize', onResize);
