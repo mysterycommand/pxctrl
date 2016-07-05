@@ -20,7 +20,7 @@ const puppet = new Puppet({
     _z(ts) { return 1; },
 
     _width(ts) {
-        return 40;
+        return 100;
     },
 
     _height(ts) {
@@ -29,32 +29,34 @@ const puppet = new Puppet({
 });
 
 puppet.addChild(new Puppet({
-    _x(ts) { return this.parent.width - 10; },
+    _x: sine(110, -60, 3000),
 
-    _y(ts) { return this.parent.height - 10; },
+    _y(ts) { return this.parent.height - this.height / 2; },
+
+    _z: sine(2, 0, 3000, 3000 / 4),
 
     _width(ts) {
-        return 20;
+        return 50;
     },
 
     _height(ts) {
-        return 20;
+        return 50;
     },
 }));
 
 puppet.addChild(new Puppet({
-    _x(ts) { return -10; },
+    _x: sine(-60, 110, 3000),
 
-    _y(ts) { return -10; },
+    _y(ts) { return -this.height / 2; },
 
-    _z(ts) { return 2; },
+    _z: sine(0, 2, 3000, 3000 / 4),
 
     _width(ts) {
-        return 20;
+        return 50;
     },
 
     _height(ts) {
-        return 20;
+        return 50;
     },
 }));
 
@@ -88,7 +90,7 @@ onResize();
     puppet.update(ts);
     puppet
         .flat()
-        .forEach(part => part.draw(ctx));
+        .forEach(p => p.draw(ctx));
 
     pts = ts;
 })();

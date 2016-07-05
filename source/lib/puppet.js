@@ -11,6 +11,7 @@ const FN_KEYS = [
 export default class Puppet extends Composite {
     constructor(opts) {
         super();
+        this.update(0);
 
         FN_KEYS
             .filter(key => !!opts[key])
@@ -53,9 +54,19 @@ export default class Puppet extends Composite {
     draw(ctx) {
         ctx.save();
 
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = `hsl(210,80%,${30 + 20 * this.z}%)`;
         ctx.fillStyle = this.fillStyle;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.width, this.y);
+        ctx.lineTo(this.x + this.width, this.y + this.height);
+        ctx.lineTo(this.x, this.y + this.height);
+        ctx.closePath();
+
         ctx.fill();
+        ctx.stroke();
 
         ctx.restore();
     }
