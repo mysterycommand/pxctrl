@@ -110,7 +110,7 @@ const part = new Part({
         }),
 
         new Part({
-            x: sinWave(-20, 20, p, -p / 4),
+            x: cosWave(-20, 20, p),
 
             r: function r(ts) {
                 return Math.atan2(this.y(ts) + 30, this.x(ts)) - π / 2;
@@ -122,13 +122,13 @@ const part = new Part({
                         return 60;
                     },
 
-                    r: sinWave(0, -π / 4, p, 500),
+                    r: cosWave(0, -π / 4, p, 500),
                 }),
             ],
         }),
 
         new Part({
-            x: cosWave(-20, 20, p, 200),
+            x: sinWave(-20, 20, p),
 
             r: function r(ts) {
                 return Math.atan2(this.y(ts) + 30, this.x(ts)) - π / 2;
