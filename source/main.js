@@ -1,16 +1,73 @@
 import './lib/style';
 import './main.scss';
 
+import { sine, cosine } from './lib/wave';
+import Puppet from './lib/puppet';
+
 const canvas = document.getElementById('js-canvas');
 const ctx = canvas.getContext('2d');
 
-const π = Math.PI;
-const ππ = 2 * Math.PI;
-
-let ud, lr;
 let fts, pts, dts;
 let w, h, hw, hh;
-let p = 3000;
+
+const p0 = 5000;
+const p1 = 8000;
+const p2 = 13000;
+
+function makePuppet() {
+    const puppet = new Puppet({
+        _x(ts) {
+            return hw - this.width / 2;
+        },
+
+        _y(ts) {
+            return hh - this.height / 2;
+        },
+
+        _z: (ts) => 2,
+        _width: (ts) => 80,
+        _height: (ts) => 200,
+    });
+
+    puppet.addChild(new Puppet({
+        _x: sine(90, -60, p1),
+        _y: sine(175, -25, p1),
+        _z: sine(3, 1, p1, p1 / 4),
+        _width: (ts) => 50,
+        _height: (ts) => 50,
+    }));
+
+    puppet.addChild(new Puppet({
+        _x: sine(-60, 90, p1),
+        _y: sine(-25, 175, p1),
+        _z: sine(1, 3, p1, p1 / 4),
+        _width: (ts) => 50,
+        _height: (ts) => 50,
+    }));
+
+    puppet.addChild(new Puppet({
+        _x: cosine(130, -75, p2, p2 / 2),
+        _y: cosine(250, -75, p2),
+        _z: cosine(4, 0, p2, p2 / 4),
+        _width: (ts) => 25,
+        _height: (ts) => 25,
+    }));
+
+    puppet.addChild(new Puppet({
+        _x: cosine(-75, 130, p2, p2 / 2),
+        _y: cosine(-75, 250, p2),
+        _z: cosine(0, 4, p2, p2 / 4),
+        _width: (ts) => 25,
+        _height: (ts) => 25,
+    }));
+
+    return puppet;
+}
+
+const puppets = [];
+for (let i = 0, l = 1; i < l; ++i) {
+    puppets.push(makePuppet());
+}
 
 function onResize(/*event*/) {
     const {
@@ -23,47 +80,13 @@ function onResize(/*event*/) {
     hh = h / 2;
     hw = w / 2;
 
-    ud = sinWave(0 + hh / 2, h - hh / 2, p);
-    lr = cosWave(0 + hw / 2, w - hw / 2, p);
+    puppets.forEach(puppet => {
+        puppet._x = sine(hw / 2, hw + hw / 2, p0)
+    });
 }
 
 window.addEventListener('resize', onResize);
 onResize();
-
-function sinWave(min, max, period, offset = 0) {
-    return function(ts) {
-        return ((max - min) / 2) * (1 + Math.sin((ts + offset) * (ππ / period))) + min;
-    }
-}
-
-function cosWave(min, max, period, offset = 0) {
-    return function(ts) {
-        return ((max - min) / 2) * (1 + Math.cos((ts + offset) * (ππ / period))) + min;
-    }
-}
-
-function draw(ctx, ts) {
-    ctx.save();
-
-    ctx.lineWidth = 3;
-    ctx.fillStyle = 'rgba(255,255,0,0.65)';
-    ctx.strokeStyle = 'rgba(255,0,255,0.85)';
-
-    const x = lr(ts);
-    const y = ud(ts);
-
-    ctx.translate(x, y);
-    ctx.rotate(Math.atan2(y - hh, x - hw) - π / 2);
-    ctx.beginPath();
-    ctx.arc(0, 0, 20, π, 0);
-    ctx.arc(0, 60, 20, 0, π);
-    ctx.closePath();
-
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.restore();
-}
 
 (function tick(ts = Date.now()) {
     window.requestAnimationFrame(tick);
@@ -75,9 +98,16 @@ function draw(ctx, ts) {
     dts = ts - pts;
 
     ctx.clearRect(0, 0, w, h);
-    for (let i = 0, l = 3; i < l; ++ i) {
-        draw(ctx, ts + i * (p / l));
-    }
+
+    puppets.forEach((puppet, i) => {
+        const halfLength = (puppets.length - 1) / 2;
+        ctx.globalAlpha = 1 - (Math.abs(i - halfLength) / halfLength * 0.5);
+
+        puppet.update(ts + ((i - halfLength) * (p0 / puppets.length)));
+        puppet
+            .flat()
+            .forEach(p => p.draw(ctx));
+    });
 
     pts = ts;
 })();
