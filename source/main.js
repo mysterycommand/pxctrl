@@ -6,7 +6,7 @@ import { sine, cosine } from './lib/wave';
 const canvas = document.getElementById('js-canvas');
 const ctx = canvas.getContext('2d');
 
-let fts = -1, pts = -1, dts = -1;
+let fts = -1, pts = -1, dts;
 let w, h, hw, hh;
 
 function onResize(/*event*/) {
@@ -31,7 +31,6 @@ function tick(ts) {
     ts -= fts;
 
     if (pts === -1) { pts = ts; }
-    if (dts === -1) { dts = ts; }
     dts = ts - pts;
 
     // do work with ts or dts here
