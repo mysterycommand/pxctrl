@@ -8,7 +8,7 @@ import { ππ, sin, cos } from './math';
  *
  * @param  {Function} fn     the function to generate the wave (typically `sin`
  *                           or `cos` [see usage below])
- * @param  {Number}   p      the period for this wave in milliseconds
+ * @param  {Number}   p      the period for this wave (in milliseconds)
  * @param  {Number}   min    the minimum value for the generated wave
  * @param  {Number}   max    the maximum value for the generated wave
  * @param  {Number}   offset an optional offset (in milliseconds) at which to
@@ -25,7 +25,7 @@ export function getWavFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
 
     // radians per period (angular frequency)
     // @see https://en.wikipedia.org/wiki/Angular_frequency
-    const rpp = ππ / period;
+    const rpp = ππ / p;
 
     return (ts) => {
         // offset timestamp
@@ -39,7 +39,7 @@ export function getWavFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
  * returns a sine wave function that takes a timestamp (optionally offset by
  * `offset`) and returns a value between `min` and `max` for the period `p`
  *
- * @param  {Number}   p      the period for this sine wave in milliseconds
+ * @param  {Number}   p      the period for this sine wave (in milliseconds)
  * @param  {Number}   min    the minimum value for the generated sine wave
  * @param  {Number}   max    the maximum value for the generated sine wave
  * @param  {Number}   offset an optional offset (in milliseconds) at which to
@@ -58,7 +58,7 @@ export function getSinFn(p = 1000, min = -1, max = 1, offset = 0) {
  * returns a cosine wave function that takes a timestamp (optionally offset by
  * `offset`) and returns a value between `min` and `max` for the period `p`
  *
- * @param  {Number}   p      the period for this cosine wave in milliseconds
+ * @param  {Number}   p      the period for this cosine wave (in milliseconds)
  * @param  {Number}   min    the minimum value for the generated cosine wave
  * @param  {Number}   max    the maximum value for the generated cosine wave
  * @param  {Number}   offset an optional offset (in milliseconds) at which to
