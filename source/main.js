@@ -43,6 +43,6 @@ function tick(ts) {
 
     // update the 'previous timestamp'
     pts = ts;
-};
+}
 
 window.requestAnimationFrame(tick);
