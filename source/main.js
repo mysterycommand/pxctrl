@@ -19,11 +19,18 @@ function onResize(/*event*/) {
     hw = w / 2;
 }
 
-window.addEventListener('resize', onResize);
+addEventListener('resize', onResize);
 onResize();
 
+const frames = [];
+for (let i = 0, l = 3; i < l; ++i) {
+    const img = new Image(48, 48);
+    img.src = `./images/megaman-0${i}.png`;
+    frames.push(img);
+}
+
 function tick(ts) {
-    window.requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
 
     // if there is no 'first timestamp' use the current one
     if (fts === -1) { fts = ts; }
@@ -40,9 +47,14 @@ function tick(ts) {
 
     // do work with ts or dts here
     ctx.clearRect(0, 0, w, h);
+    ctx.imageSmoothingEnabled = false;
+
+    if (frames[0]) {
+        ctx.drawImage(frames[0], hw - 96, hh - 96, 192, 192);
+    }
 
     // update the 'previous timestamp'
     pts = ts;
 }
 
-window.requestAnimationFrame(tick);
+requestAnimationFrame(tick);
