@@ -1,12 +1,18 @@
 import './lib/style';
 import './main.scss';
 
-import { getSinFn } from './lib/util/wave';
+import { π/*, ππ, toDegrees*/ } from './lib/util/math';
+import { getWavFn } from './lib/util/wave';
 
 const canvas = document.getElementById('js-canvas');
 const ctx = canvas.getContext('2d');
 
-const frameFn = getSinFn(5000, -0.5, 2.5);
+const saw = (radians) => (radians / π) - 1;
+function getFrameFn(period, totalFrames) {
+    const sawFn = getWavFn(saw, period, 0, totalFrames);
+    return (ts) => Math.floor(sawFn(ts)) % (totalFrames + 1);
+}
+const frameFn = getFrameFn(400, 3);
 
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
@@ -27,7 +33,7 @@ addEventListener('resize', onResize);
 onResize();
 
 function tick(ts) {
-    // requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
 
     // if there is no 'first timestamp' use the current one
     if (fts === -1) { fts = ts; }
@@ -46,8 +52,7 @@ function tick(ts) {
     ctx.clearRect(0, 0, w, h);
     ctx.imageSmoothingEnabled = false;
 
-    const f = Math.round(frameFn(ts));
-    console.log(f);
+    const f = frameFn(ts);
     ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
 
     // update the 'previous timestamp'
@@ -63,6 +68,7 @@ Promise.all([
     './images/megaman-00.png',
     './images/megaman-01.png',
     './images/megaman-02.png',
+    './images/megaman-01.png',
 
 ].map(url => new Promise((resolve, reject) => {
 
