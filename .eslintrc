@@ -10,5 +10,7 @@
     "sourceType": "module"
   },
   "root": true,
-  "rules": {}
+  "rules": {
+    "no-console": false
+  }
 }
