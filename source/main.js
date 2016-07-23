@@ -9,9 +9,9 @@ const ctx = canvas.getContext('2d');
 
 function getFrameFn(period, totalFrames) {
     const sawFn = getWavFn(saw, period, 0, totalFrames);
-    return (ts) => Math.floor(sawFn(ts)) % (totalFrames + 1);
+    return (ts) => Math.floor(sawFn(ts));
 }
-const frameFn = getFrameFn(400, 3);
+const frameFn = getFrameFn(500, 4);
 
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
@@ -51,11 +51,13 @@ function tick(ts) {
     ctx.clearRect(0, 0, w, h);
     ctx.imageSmoothingEnabled = false;
 
-    ctx.drawImage(frames[frameFn(ts)], hw - 96, hh - 96, 192, 192);
+    const f = frameFn(ts);
+    ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
 
     ctx.fillStyle = '#fff';
     ctx.font = '24px monospace';
     ctx.fillText((1000 / dts).toFixed(2), 8, 28);
+    ctx.fillText(f, 8, 56);
 
     // update the 'previous timestamp'
     pts = ts;
