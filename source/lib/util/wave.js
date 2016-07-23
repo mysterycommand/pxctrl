@@ -6,8 +6,9 @@ import { ππ, sin, cos } from './math';
  * (optionally offset by `offset`) and returns a value between `min` and `max`
  * for the period `p`
  *
- * @param  {Function} fn     the function to generate the wave (typically `sin`
- *                           or `cos` [see usage below])
+ * @param  {Function} fn     the function to generate the wave (takes a value in
+ *                           radians and returns a value between -1 and 1 at
+ *                           some interval)
  * @param  {Number}   p      the period for this wave (in milliseconds)
  * @param  {Number}   min    the minimum value for the generated wave
  * @param  {Number}   max    the maximum value for the generated wave
@@ -34,8 +35,31 @@ export function getWaveFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
     };
 }
 
+/**
+ * ## getStepFn
+ * this utility function returns a step function (like a integer-only wave
+ * function) that takes a timestamp (optionally offset by `offset`) and returns
+ * an integer value between `min` and `max` for the period `p`
+ *
+ * @param  {Function} fn     the function to generate the stepped wave (takes a
+ *                           value in radians and returns a value between -1 and
+ *                           1 at some interval)
+ * @param  {Number}   p      the period for this wave (in milliseconds)
+ * @param  {Number}   min    the minimum value for the generated wave
+ * @param  {Number}   max    the maximum value for the generated wave
+ * @param  {Number}   offset an optional offset (in milliseconds) at which to
+ *                           start the wave
+ *
+ * @return {Function}        a wave function that takes a timestamp (optionally
+ *                           offset by `offset`) and returns an integer value
+ *                           between `min` and `max` for the period `p`
+ */
 export function getStepFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
+    // the root wave function that generates a value between min and max over
+    // a period p and optionally offset by o
     const waveFn = getWaveFn(fn, p, min, max, offset);
+
+    // just floors the result of the above function
     return (ts) => Math.floor(waveFn(ts));
 }
 
