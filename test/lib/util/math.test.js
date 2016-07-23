@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import {
-    π, ππ, sin, cos,
+    π, ππ, sin, cos, saw,
     toDegrees,
     toRadians,
 } from '../../../source/lib/util/math';
@@ -47,6 +47,18 @@ describe('lib/util/math', function() {
             assert.equal(toRadians(180), π);
             assert.equal(toRadians(360), ππ);
             assert.equal(toRadians(450), ππ + π / 2);
+        });
+    });
+
+    describe('saw', function() {
+        it('should produce a saw wave with values between -1 and 1 from 0 2π', function() {
+            assert.equal(saw(0), -1);
+            assert.equal(saw(π / 4), -0.75);
+            assert.equal(saw(π / 2), -0.5);
+            assert.equal(saw(π - π / 4), -0.25);
+            assert.equal(saw(π), 0);
+            assert.equal(saw(ππ - π / 4), 0.75);
+            assert.equal(saw(ππ), 1);
         });
     });
 
