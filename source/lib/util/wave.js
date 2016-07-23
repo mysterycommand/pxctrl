@@ -34,6 +34,11 @@ export function getWaveFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
     };
 }
 
+export function getStepFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
+    const waveFn = getWaveFn(fn, p, min, max, offset);
+    return (ts) => Math.floor(waveFn(ts));
+}
+
 /**
  * ## getSinFn
  * returns a sine wave function that takes a timestamp (optionally offset by
