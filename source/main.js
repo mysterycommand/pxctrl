@@ -1,13 +1,13 @@
 import './lib/style';
 import './main.scss';
 
-import { saw } from './lib/util/math';
+import { tri } from './lib/util/math';
 import { getStepFn } from './lib/util/wave';
 
 const cvs = document.getElementById('js-canvas');
 const ctx = cvs.getContext('2d');
 
-const frameFn = getStepFn(saw, 500, 0, 4);
+const frameFn = getStepFn(tri, 5000, 0, 3);
 
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
@@ -49,6 +49,7 @@ function tick(ts) {
 
     const f = frameFn(ts);
     ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
+    console.log(f);
 
     ctx.fillStyle = '#fff';
     ctx.font = '24px monospace';

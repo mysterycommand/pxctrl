@@ -12,6 +12,16 @@ export function saw(radians) {
 }
 
 /**
+ * ## tri
+ * @param  {Number} radians a value in radians (clamped between 0 and ππ)
+ * @return {Number}         a value between -1 and 1 for entry values between 0
+ *                          and ππ
+ */
+export function tri(radians) {
+    return 1 - 2 * Math.abs(saw(radians));
+}
+
+/**
  * ## toDegrees
  * takes an angle in radians and returns that angle in degrees
  *
