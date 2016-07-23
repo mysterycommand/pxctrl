@@ -51,14 +51,15 @@ describe('lib/util/math', function() {
     });
 
     describe('saw', function() {
-        it('should produce a saw wave with values between -1 and 1 from 0 2π', function() {
+        it('should produce a saw wave with values between -1 and 1 from 0 to 2π', function() {
             assert.equal(saw(0), -1);
             assert.equal(saw(π / 4), -0.75);
             assert.equal(saw(π / 2), -0.5);
             assert.equal(saw(π - π / 4), -0.25);
             assert.equal(saw(π), 0);
             assert.equal(saw(ππ - π / 4), 0.75);
-            assert.equal(saw(ππ), 1);
+            assert.equal(saw(ππ), -1);
+            assert.equal(saw(ππ + π / 4), -0.75);
         });
     });
 
