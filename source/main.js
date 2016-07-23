@@ -52,8 +52,11 @@ function tick(ts) {
     ctx.clearRect(0, 0, w, h);
     ctx.imageSmoothingEnabled = false;
 
-    const f = frameFn(ts);
-    ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
+    ctx.drawImage(frames[frameFn(ts)], hw - 96, hh - 96, 192, 192);
+
+    ctx.fillStyle = '#fff';
+    ctx.font = '24px monospace';
+    ctx.fillText((1000 / dts).toFixed(2), 8, 28);
 
     // update the 'previous timestamp'
     pts = ts;
