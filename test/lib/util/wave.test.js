@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import {
-    getWavFn,
+    getWaveFn,
     getSinFn,
     getCosFn,
 } from '../../../source/lib/util/wave';
@@ -17,7 +17,7 @@ const { sin, cos } = Math;
 const meh = 1e-10; // ahh, JavaScript math
 
 describe('lib/util/wave', function() {
-    describe('#getWavFn', function() {
+    describe('#getWaveFn', function() {
         it('can be used to return a sine function', function() {
             const provider = [{
                 p: 500,
@@ -46,7 +46,7 @@ describe('lib/util/wave', function() {
             provider.forEach(function({p, min, max, offset}) {
                 const amp = (max - min) / 2;
 
-                sinFn = getWavFn(sin, p, min, max, offset);
+                sinFn = getWaveFn(sin, p, min, max, offset);
 
                 assert.closeTo(sinFn(0 - offset), min + amp, meh);
                 assert.closeTo(sinFn(p * 1 / 4 - offset), max, meh);
@@ -84,7 +84,7 @@ describe('lib/util/wave', function() {
             provider.forEach(function({p, min, max, offset}) {
                 const amp = (max - min) / 2;
 
-                cosFn = getWavFn(cos, p, min, max, offset);
+                cosFn = getWaveFn(cos, p, min, max, offset);
 
                 assert.closeTo(cosFn(0 - offset), max, meh);
                 assert.closeTo(cosFn(p * 1 / 4 - offset), min + amp, meh);

@@ -2,13 +2,13 @@ import './lib/style';
 import './main.scss';
 
 import { saw } from './lib/util/math';
-import { getWavFn } from './lib/util/wave';
+import { getWaveFn } from './lib/util/wave';
 
 const canvas = document.getElementById('js-canvas');
 const ctx = canvas.getContext('2d');
 
 function getFrameFn(period, totalFrames) {
-    const sawFn = getWavFn(saw, period, 0, totalFrames);
+    const sawFn = getWaveFn(saw, period, 0, totalFrames);
     return (ts) => Math.floor(sawFn(ts));
 }
 const frameFn = getFrameFn(500, 4);

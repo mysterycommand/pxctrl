@@ -1,7 +1,7 @@
 import { ππ, sin, cos } from './math';
 
 /**
- * ## getWavFn
+ * ## getWaveFn
  * this utility function returns a wave function that takes a timestamp
  * (optionally offset by `offset`) and returns a value between `min` and `max`
  * for the period `p`
@@ -18,7 +18,7 @@ import { ππ, sin, cos } from './math';
  *                           offset by `offset`) and returns a value between
  *                           `min` and `max` for the period `p`
  */
-export function getWavFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
+export function getWaveFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
     // peak amplitude (not peak-to-peak amplitude)
     // @see https://en.wikipedia.org/wiki/Amplitude
     const amp = (max - min) / 2;
@@ -50,7 +50,7 @@ export function getWavFn(fn, p = 1000, min = -1, max = 1, offset = 0) {
  *                           between `min` and `max` for the period `p`
  */
 export function getSinFn(p = 1000, min = -1, max = 1, offset = 0) {
-    return getWavFn(sin, p, min, max, offset);
+    return getWaveFn(sin, p, min, max, offset);
 }
 
 /**
@@ -69,5 +69,5 @@ export function getSinFn(p = 1000, min = -1, max = 1, offset = 0) {
  *                           between `min` and `max` for the period `p`
  */
 export function getCosFn(p = 1000, min = -1, max = 1, offset = 0) {
-    return getWavFn(cos, p, min, max, offset);
+    return getWaveFn(cos, p, min, max, offset);
 }
