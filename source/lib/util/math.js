@@ -22,3 +22,7 @@ export function toDegrees(radians) {
 export function toRadians(degrees) {
     return degrees * π / 180;
 }
+
+export function saw(radians) {
+    return (radians / π) - 1;
+}
