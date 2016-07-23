@@ -4,8 +4,8 @@ import './main.scss';
 import { saw } from './lib/util/math';
 import { getStepFn } from './lib/util/wave';
 
-const canvas = document.getElementById('js-canvas');
-const ctx = canvas.getContext('2d');
+const cvs = document.getElementById('js-canvas');
+const ctx = cvs.getContext('2d');
 
 const frameFn = getStepFn(saw, 500, 0, 4);
 
@@ -18,8 +18,8 @@ function onResize(/*event*/) {
         innerWidth: width,
     } = window;
 
-    canvas.height = h = height;
-    canvas.width = w = width;
+    cvs.height = h = height;
+    cvs.width = w = width;
     hh = h / 2;
     hw = w / 2;
 }
