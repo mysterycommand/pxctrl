@@ -2,6 +2,16 @@ export const { PI: π, sin, cos } = Math;
 export const ππ = 2 * π;
 
 /**
+ * ## saw
+ * @param  {Number} radians a value in radians (clamped between 0 and ππ)
+ * @return {Number}         a value between -1 and 1 for entry values between 0
+ *                          and ππ
+ */
+export function saw(radians) {
+    return ((radians % ππ) / π) - 1;
+}
+
+/**
  * ## toDegrees
  * takes an angle in radians and returns that angle in degrees
  *
@@ -21,14 +31,4 @@ export function toDegrees(radians) {
  */
 export function toRadians(degrees) {
     return degrees * π / 180;
-}
-
-/**
- * ## saw
- * @param  {Number} radians a value in radians (clamped between 0 and ππ)
- * @return {Number}         a value between -1 and 1 for entry values between 0
- *                          and ππ
- */
-export function saw(radians) {
-    return ((radians % ππ) / π) - 1;
 }
