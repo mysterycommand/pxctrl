@@ -7,7 +7,7 @@ import { getStepFn } from './lib/util/wave';
 const cvs = document.getElementById('js-canvas');
 const ctx = cvs.getContext('2d');
 
-const frameFn = getStepFn(tri, 5000, 0, 3);
+const frameFn = getStepFn(tri, 500, 0.5, 2.5);
 
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
@@ -49,7 +49,6 @@ function tick(ts) {
 
     const f = frameFn(ts);
     ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
-    console.log(f);
 
     ctx.fillStyle = '#fff';
     ctx.font = '24px monospace';
@@ -69,7 +68,6 @@ Promise.all([
     './images/megaman-00.png',
     './images/megaman-01.png',
     './images/megaman-02.png',
-    './images/megaman-01.png',
 
 ].map(url => new Promise((resolve, reject) => {
 
