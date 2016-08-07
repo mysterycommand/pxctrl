@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import {
-    π, ππ, sin, cos, saw,
+    π, ππ, sin, cos, saw, tri,
     toDegrees,
     toRadians,
 } from '../../../source/lib/util/math';
@@ -40,6 +40,19 @@ describe('lib/util/math', function() {
             assert.equal(saw(ππ - π / 4), 0.75);
             assert.equal(saw(ππ), -1);
             assert.equal(saw(ππ + π / 4), -0.75);
+        });
+    });
+
+    describe('tri', function() {
+        it('should produce a triangle wave with values between -1 and 1 from 0 to 2π', function() {
+            assert.equal(tri(0), -1);
+            assert.equal(tri(π / 4), -0.5);
+            assert.equal(tri(π / 2), 0);
+            assert.equal(tri(π - π / 4), 0.5);
+            assert.equal(tri(π), 1);
+            assert.equal(tri(ππ - π / 4), -0.5);
+            assert.equal(tri(ππ), -1);
+            assert.equal(tri(ππ + π / 4), -0.5);
         });
     });
 
