@@ -12,20 +12,13 @@ const frameFn = getStepFn(tri, 500, 0.5, 2.5);
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
 
-function onResize(/*event*/) {
-    const {
-        innerHeight: height,
-        innerWidth: width,
-    } = window;
-
-    cvs.height = h = height;
+import resize from './lib/on/resize';
+resize(window, function ({ width, height, centerX, centerY }) {
     cvs.width = w = width;
-    hh = h / 2;
-    hw = w / 2;
-}
-
-addEventListener('resize', onResize);
-onResize();
+    cvs.height = h = height;
+    hw = centerX;
+    hh = centerY;
+});
 
 function tick(ts) {
     requestAnimationFrame(tick);
