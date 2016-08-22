@@ -59,10 +59,6 @@ function tick(ts) {
     pts = ts;
 }
 
-addEventListener('click', () => {
-    requestAnimationFrame(tick);
-});
-
 Promise.all([
 
     './images/megaman-00.png',
