@@ -52,22 +52,12 @@ function tick(ts) {
     pts = ts;
 }
 
-Promise.all([
-
+import load from './lib/on/load';
+load([
     './images/megaman-00.png',
     './images/megaman-01.png',
     './images/megaman-02.png',
-
-].map(url => new Promise((resolve, reject) => {
-
-    const img = new Image(48, 48);
-    img.addEventListener('load', () => resolve(img));
-    img.addEventListener('error', reject);
-    img.src = url;
-
-}))).then(results => {
-
+], results => {
     frames = results;
     requestAnimationFrame(tick);
-
 });
