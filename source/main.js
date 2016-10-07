@@ -1,20 +1,16 @@
 import './lib/style';
 import './main.scss';
 
-import { sine, cosine } from './lib/wave';
+import { saw } from './lib/util/math';
+import { getStepFn } from './lib/util/wave';
 
-const canvas = document.getElementById('js-canvas');
-const ctx = canvas.getContext('2d');
+const cvs = document.getElementById('js-canvas');
+const ctx = cvs.getContext('2d');
 
-const { PI: π } = Math;
-const ππ = π * 2;
+const frameFn = getStepFn(saw, 500, 0, 4);
 
 let fts = -1, pts = -1, dts;
-let w, h, hw, hh;
-
-const p = 12000;
-const fx = cosine(-1, 1, p);
-const fy = sine(-1, 1, p);
+let w, h, hw, hh, frames;
 
 function onResize(/*event*/) {
     const {
@@ -22,21 +18,17 @@ function onResize(/*event*/) {
         innerWidth: width,
     } = window;
 
-    canvas.height = h = height;
-    canvas.width = w = width;
+    cvs.height = h = height;
+    cvs.width = w = width;
     hh = h / 2;
     hw = w / 2;
 }
 
-window.addEventListener('resize', onResize);
+addEventListener('resize', onResize);
 onResize();
 
-function toDeg(rad) {
-    return rad * 180 / π;
-}
-
 function tick(ts) {
-    window.requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
 
     // if there is no 'first timestamp' use the current one
     if (fts === -1) { fts = ts; }
@@ -52,22 +44,42 @@ function tick(ts) {
     dts = ts - pts;
 
     // do work with ts or dts here
-    const x = fx(ts);
-    const y = fy(ts);
-    const a = Math.atan2(y, x);
-    const d = toDeg(a) + 90;
-    const e = (d + 180) % 360;
+    ctx.clearRect(0, 0, w, h);
+    ctx.imageSmoothingEnabled = false;
 
-    ctx.fillStyle = `hsl(${d},70%,30%)`;
-    ctx.fillRect(0, 0, w, h);
+    const f = frameFn(ts);
+    ctx.drawImage(frames[f], hw - 96, hh - 96, 192, 192);
 
-    ctx.fillStyle = `hsl(${e},70%,30%)`;
-    ctx.shadowBlur = 200;
-    ctx.shadowColor = 'rgba(0,0,0,0.65)';
-    ctx.fillRect(hw - 100, hh - 100, 200, 200);
+    ctx.fillStyle = '#fff';
+    ctx.font = '24px monospace';
+    ctx.fillText((1000 / dts).toFixed(2), 8, 28);
+    ctx.fillText(f, 8, 56);
 
     // update the 'previous timestamp'
     pts = ts;
-};
+}
 
-window.requestAnimationFrame(tick);
+addEventListener('click', () => {
+    requestAnimationFrame(tick);
+});
+
+Promise.all([
+
+    './images/megaman-00.png',
+    './images/megaman-01.png',
+    './images/megaman-02.png',
+    './images/megaman-01.png',
+
+].map(url => new Promise((resolve, reject) => {
+
+    const img = new Image(48, 48);
+    img.addEventListener('load', () => resolve(img));
+    img.addEventListener('error', reject);
+    img.src = url;
+
+}))).then(results => {
+
+    frames = results;
+    requestAnimationFrame(tick);
+
+});
