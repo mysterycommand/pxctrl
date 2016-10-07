@@ -1,13 +1,13 @@
 import './lib/style';
 import './main.scss';
 
-import { saw } from './lib/util/math';
+import { tri } from './lib/util/math';
 import { getStepFn } from './lib/util/wave';
 
 const cvs = document.getElementById('js-canvas');
 const ctx = cvs.getContext('2d');
 
-const frameFn = getStepFn(saw, 500, 0, 4);
+const frameFn = getStepFn(tri, 500, 0.5, 2.5);
 
 let fts = -1, pts = -1, dts;
 let w, h, hw, hh, frames;
@@ -68,7 +68,6 @@ Promise.all([
     './images/megaman-00.png',
     './images/megaman-01.png',
     './images/megaman-02.png',
-    './images/megaman-01.png',
 
 ].map(url => new Promise((resolve, reject) => {
 
