@@ -10,7 +10,7 @@ GIFEncoder instance.
 Not sure if I want to pass a global context around either, or how I feel about
 the app being resize and tick (though I guess that's functional composition).
 Lol, who am I writing to right now.
- */
+*/
 
 import app from '../app/app';
 
