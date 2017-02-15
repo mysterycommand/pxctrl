@@ -1,8 +1,8 @@
-export default function tick(callback) {
+export default function tick(context, callback) {
     let fts = -1, pts = -1, dts;
 
     function onTick(ts) {
-        requestAnimationFrame(onTick);
+        context.requestAnimationFrame(onTick);
 
         // if there is no 'first timestamp' use the current one
         if (fts === -1) { fts = ts; }
@@ -24,5 +24,5 @@ export default function tick(callback) {
         pts = ts;
     }
 
-    requestAnimationFrame(onTick);
+    context.requestAnimationFrame(onTick);
 }

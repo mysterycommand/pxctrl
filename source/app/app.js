@@ -26,7 +26,7 @@ export default function app(context, canvas) {
             hh = centerY;
         });
 
-        tick(function ({ ts, dts }) {
+        tick(context, function ({ ts, dts }) {
             ctx.clearRect(0, 0, w, h);
             ctx.imageSmoothingEnabled = false;
 

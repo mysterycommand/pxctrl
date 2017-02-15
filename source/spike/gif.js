@@ -20,4 +20,5 @@ app({
     innerWidth: SIZE,
     innerHeight: SIZE,
     addEventListener() {},
+    requestAnimationFrame() {},
 }, new Canvas(SIZE, SIZE));
